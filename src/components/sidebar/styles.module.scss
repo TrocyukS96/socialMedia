@@ -1,0 +1,37 @@
+@import './../../styles/vars.module';
+.sidebar {
+  width: 130px;
+  padding: 10px;
+  grid-area: sidebar;
+  background-color: #c5bcbc;
+  box-shadow: $boxShadow;
+
+  .sidebarItem {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+    padding-left: 25px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in;
+  }
+
+  .sidebarItem:hover {
+    transform: scale(1.1);
+  }
+
+  .sidebarItem:last-child {
+    margin-bottom: 0;
+  }
+
+  .sidebarLink {
+  }
+
+}
+
+.activeLink{
+  .logoIcon{
+    fill: #9c27b0;
+  }
+}

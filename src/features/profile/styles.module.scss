@@ -1,0 +1,47 @@
+@import './../../styles/vars.module';
+@import './../../styles/mixins.module';
+
+.profile {
+   padding: $blockPadding;
+   .inner{
+      padding: 10px;
+      @include flexEdit(flex-start,flex-start,row,40px);
+
+      .leftSide{
+         padding-left: 10px;
+         img{
+            width: 300px;
+            height: 100%;
+            object-fit: contain;
+            border-radius: $borderRadius;
+         }
+      }
+      .rightSide{
+         .title{
+            font-family: Arial;
+            @include flexEdit(flex-start,center,row, 15px);
+         }
+         .interests{
+            margin-top: 10px;
+            font-family: Arial;
+            span{
+               font-size: 20px;
+               font-weight: 500;
+
+            }
+         }
+      }
+
+   }
+   .postsTitle{
+      margin-top: 15px;
+   }
+
+   .postsWrap{
+      margin-top: 10px;
+   }
+
+
+
+}
+

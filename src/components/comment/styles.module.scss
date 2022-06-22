@@ -1,0 +1,27 @@
+@import './../../styles/vars.module';
+@import './../../styles/mixins.module';
+.comment{
+  margin-top: 12px;
+  padding: 9px;
+  box-shadow: $boxShadow;
+  border: 1px solid #c5bcbc;
+  border-radius: $borderRadius;
+  .commentTop{
+    @include flexEdit(flex-start,center,row,10px);
+
+    img{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .topText{
+      .time{
+        margin-top: 4px;
+        font-size: 14px ;
+      }
+    }
+  }
+  .content{
+    margin-top: 10px;
+  }
+}

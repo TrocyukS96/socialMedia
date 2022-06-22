@@ -1,0 +1,14 @@
+@mixin toCenterBlock (){
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flexEdit ($justifyContent,$alignItems,$flexDirection:row,$gap:1px){
+  display: flex;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  flex-direction: $flexDirection;
+  gap:$gap;
+}

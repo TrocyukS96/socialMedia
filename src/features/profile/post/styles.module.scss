@@ -1,0 +1,105 @@
+@import './../../../styles/vars.module';
+@import './../../../styles/mixins.module';
+
+.post {
+  margin-bottom: 20px;
+  padding: 10px 10px 10px 30px;
+  width: 100%;
+  position: relative;
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+
+  .inner {
+    .top {
+      @include flexEdit(flex-start, center, row, 10px);
+
+      img {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+      }
+
+      .topText {
+        h4 {
+          @include flexEdit(flex-start,center,row,10px);
+          .removeBtn{
+           transform: translate(-6px,1px);
+          }
+        }
+
+      }
+    }
+
+    .content {
+      margin-top: 10px;
+
+      .text {
+
+      }
+
+      .postImageWrap {
+        @include flexEdit(center, center);
+
+        .postImage {
+          width: 400px;
+          height: 200px;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  .topic {
+    padding: 5px;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    background-color: #c5bcbc;
+    border-radius: $borderRadius;
+    color: white;
+  }
+
+  .bottom{
+    margin:25px 0 10px;
+    transform: translateX(-11px);
+    @include flexEdit(flex-start,center, row,30px);
+    .favouriteBlock {
+      //position: absolute;
+      //bottom: 10px;
+      //left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .favourteBtn {
+        .favouriteIcon {
+        }
+      }
+      div {
+        font-size: 20px;
+      }
+    }
+    .commentsView{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      button{
+        border-style: none;
+        font-family: Arial;
+        font-size: 16px;
+        background-color: transparent;
+        cursor: pointer;
+      }
+      span{
+        font-size: 16px;
+
+      }
+    }
+  }
+
+
+
+
+
+}

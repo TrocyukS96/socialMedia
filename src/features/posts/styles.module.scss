@@ -1,0 +1,24 @@
+@import './../../styles/mixins.module';
+@import './../../styles/vars.module';
+
+.postsBlock {
+  padding: $blockPadding;
+
+  .inner {
+    padding: 10px;
+    //@include flexEdit(flex-start, center, row, 40px);
+
+    h1 {
+      text-align: center;
+    }
+    .addPostWrap{
+      text-align: right;
+    }
+    .postsWrap{
+      margin-top: 20px;
+      @include flexEdit(flex-start,flex-start,column,10px);
+    }
+  }
+}
+
+
