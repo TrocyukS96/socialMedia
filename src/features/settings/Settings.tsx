@@ -116,7 +116,7 @@ export const Settings = () => {
                         <form onSubmit={formik.handleSubmit} className={s.form}>
                             <div className={s.imgWrap}>
                                 <h6>Аватар</h6>
-                                <img src={file64 ? file64 : profile.avatar.url} alt="profile image"/>
+                                <img src={file64 ? file64 : profile?.avatar?.url} alt="profile image"/>
                                 <div className={s.changeImgInput}>
                                     <TextField
                                         type="file"
