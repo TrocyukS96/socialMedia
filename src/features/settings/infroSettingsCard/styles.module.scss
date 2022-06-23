@@ -1,0 +1,28 @@
+@import './../../../styles/mixins.module';
+@import './../../../styles/vars.module';
+
+.infoCard {
+  padding: 20px;
+  text-align: center;
+
+  .title {
+
+  }
+
+  .inputsBlock {
+
+    .inputWrap {
+      h6 {
+        text-align: left;
+      }
+
+      .input {
+        width: 100%;
+      }
+    }
+  .btnWrap{
+    margin-top: 20px;
+  }
+  }
+
+}

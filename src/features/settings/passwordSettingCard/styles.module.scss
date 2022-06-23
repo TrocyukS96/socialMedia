@@ -1,0 +1,19 @@
+.passwordCard {
+  padding: 20px;
+  text-align: center;
+
+  .inputsBlock {
+    .inputWrap {
+      h6 {
+        text-align: left;
+      }
+
+      .input {
+        width: 100%;
+      }
+    }
+    .btnWrap{
+      margin-top: 20px;
+    }
+  }
+}

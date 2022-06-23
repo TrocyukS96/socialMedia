@@ -1,0 +1,24 @@
+@import './../../../styles/mixins.module';
+@import './../../../styles/vars.module';
+.interestsCard {
+  padding: 20px;
+
+  @include flexEdit(center, center);
+
+  .inner {
+    transform: translateY(-20px);
+    text-align: center;
+
+
+    .checkboxes {
+      margin: 20px 0 20px;
+
+      .inputLabel {
+        margin-right: 8px;
+        padding: 5px;
+        font-size: 16px;
+        border-radius: $borderRadius;
+      }
+    }
+  }
+}
