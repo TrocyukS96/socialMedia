@@ -1,0 +1,32 @@
+@import './../../../styles/mixins.module';
+@import './../../../styles/vars.module';
+
+.profileCard {
+  padding: 20px;
+
+  @include flexEdit(center,center);
+
+  .inner {
+
+
+    @include flexEdit(flex-start, center, row, 40px);
+
+    .imgBlock {
+      text-align: center;
+
+      h5 {
+        margin-bottom: 20px;
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+      }
+    }
+
+    .textBlock {
+      @include flexEdit(flex-start, flex-start, column, 10px);
+    }
+  }
+}

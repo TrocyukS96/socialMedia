@@ -1,126 +1,143 @@
 @import './../../styles/vars.module';
 @import './../../styles/mixins.module';
 
-.settings{
-  padding: $blockPadding;
-  .inner{
+.settings {
+  padding: 10px 0 40px;
+
+  .inner {
     padding: 10px;
 
-    .top{
-      h1{
+    .top {
+      h1 {
         text-align: center;
 
       }
     }
-    .content{
-      margin-top: 10px;
-      h2{
-        margin: 10px 0;
-      }
-      .form {
-        padding: 10px;
-        width: 100%;
-        height: 100%;
-        background-color: white;
-        color: black;
 
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 260px 100px 100px 1fr 60px;
-        grid-column-gap: 10px;
-        column-gap: 10px;
-        grid-template-areas:
-              "imgWrap imgWrap"
-              "userName email"
-              "firstName lastName"
-              "checkboxBlock checkboxBlock"
-              "buttonBlock buttonBlock";
+    //.content{
+    //  margin-top: 10px;
+    //  h2{
+    //    margin: 10px 0;
+    //  }
+    //  .form {
+    //    padding: 10px;
+    //    width: 100%;
+    //    height: 100%;
+    //    background-color: white;
+    //    color: black;
+    //
+    //    display: grid;
+    //    grid-template-columns: 1fr 1fr;
+    //    grid-template-rows: 260px 100px 100px 1fr 60px;
+    //    grid-column-gap: 10px;
+    //    column-gap: 10px;
+    //    grid-template-areas:
+    //          "imgWrap imgWrap"
+    //          "userName email"
+    //          "firstName lastName"
+    //          "checkboxBlock checkboxBlock"
+    //          "buttonBlock buttonBlock";
+    //
+    //    .imgWrap{
+    //      grid-area: imgWrap;
+    //      img{
+    //        width: 150px;
+    //        height: 150px;
+    //        object-fit: contain;
+    //        border-radius: $borderRadius;
+    //      }
+    //      .changeImgInput{
+    //        margin-top: 10px;
+    //      }
+    //    }
+    //
+    //    .userName {
+    //      grid-area: userName;
+    //    }
+    //
+    //    .email {
+    //      grid-area: email;
+    //    }
+    //
+    //    .firstName {
+    //      grid-area: firstName;
+    //    }
+    //
+    //    .lastName {
+    //      grid-area: lastName;
+    //    }
+    //
+    //    .inputWrap {
+    //      h6 {
+    //        margin: 5px 0;
+    //        font-size: 15px;
+    //      }
+    //
+    //      .input {
+    //        width: 100%;
+    //        height: 70px;
+    //        border-radius: $borderRadius;
+    //      }
+    //    }
+    //
+    //    .checkboxWrap {
+    //      grid-area: checkboxBlock;
+    //
+    //      .checkboxes{
+    //        display: grid;
+    //        grid-template-columns: 1fr 1fr;
+    //        justify-items: start;
+    //        grid-auto-flow: row;
+    //      }
+    //    }
+    //
+    //
+    //    .btnWrap {
+    //      grid-area: buttonBlock;
+    //      margin-top: 20px;
+    //
+    //      text-align: center;
+    //    }
+    //  }
+    //}
+    //
+    //.passwordBlock{
+    //  padding: 10px;
+    //
+    //  background-color: white;
+    //
+    //  .inputWrap{
+    //    margin-bottom: 10px;
+    //
+    //    h5{
+    //      margin: 5px 0;
+    //      font-size: 15px;
+    //    }
+    //
+    //  }
+    //
+    //  .btnWrap {
+    //    grid-area: buttonBlock;
+    //    margin-top: 20px;
+    //
+    //    text-align: center;
+    //  }
+    //}
+    .content {
+      margin-top: 20px;
 
-        .imgWrap{
-          grid-area: imgWrap;
-          img{
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            border-radius: $borderRadius;
-          }
-          .changeImgInput{
-            margin-top: 10px;
-          }
-        }
+      display: grid;
+      grid-template-columns:  50% 50%;
+      grid-auto-flow: row;
 
-        .userName {
-          grid-area: userName;
-        }
-
-        .email {
-          grid-area: email;
-        }
-
-        .firstName {
-          grid-area: firstName;
-        }
-
-        .lastName {
-          grid-area: lastName;
-        }
-
-        .inputWrap {
-          h6 {
-            margin: 5px 0;
-            font-size: 15px;
-          }
-
-          .input {
-            width: 100%;
-            height: 70px;
-            border-radius: $borderRadius;
-          }
-        }
-
-        .checkboxWrap {
-          grid-area: checkboxBlock;
-
-          .checkboxes{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            justify-items: start;
-            grid-auto-flow: row;
-          }
-        }
+      gap: 15px;
 
 
-        .btnWrap {
-          grid-area: buttonBlock;
-          margin-top: 20px;
-
-          text-align: center;
-        }
-      }
-    }
-
-    .passwordBlock{
-      padding: 10px;
-
-      background-color: white;
-
-      .inputWrap{
-        margin-bottom: 10px;
-
-        h5{
-          margin: 5px 0;
-          font-size: 15px;
-        }
-
-      }
-
-      .btnWrap {
-        grid-area: buttonBlock;
-        margin-top: 20px;
-
-        text-align: center;
-      }
     }
   }
+}
+
+h5 {
+  font-size: 16px;
 }
 

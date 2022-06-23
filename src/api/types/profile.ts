@@ -18,10 +18,8 @@ export interface Avatar{
 }
 
 export interface UpdateProfileParams{
-    username:string
-    email:string
-    first_name:string
-    last_name:string
-    interests:string[]
+    first_name?:string
+    last_name?:string
+    interests?:string[]
     avatar?:string
 }

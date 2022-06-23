@@ -94,24 +94,30 @@ export const getProfilePosts = (id: number, params: PostParams) => async (dispat
     }
 }
 
-export const updateProfile = (profileData: UpdateProfileParams,avatarImg?:string) => async (dispatch:Dispatch) => {
+export const updateProfile = (profileData: UpdateProfileParams) => async (dispatch:Dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    const updateProfileData = {
-        username: profileData.username,
-        email: profileData.email,
-        first_name: profileData.first_name,
-        last_name: profileData.last_name,
-        interests: profileData.interests,
-    }
-    const avatarData = {
-        url:avatarImg
-    }
-    const someStr='https://res.cloudinary.com/hnp4q7akq/image/upload/v1652287311/droyhfwwahtb7mvz9zu8.jpg'
     const formData = new FormData()
-    formData.append('update_params', JSON.stringify(updateProfileData))
-    avatarImg && formData.append('avatar', JSON.stringify(someStr))
+    formData.append('update_params', JSON.stringify(profileData))
+    // avatarImg && formData.append('avatar', JSON.stringify(someStr))
     try {
         await profileAPI.updateProfile(formData)
+        // @ts-ignore
+        dispatch(getProfile())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        dispatch(setIsAuthAC(false))
+        dispatch(setIsLoggedInAC(false))
+        console.log(e)
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
+export const updateProfileImage = (imageData:{avatar:string}) => async (dispatch:Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    const formData = new FormData()
+    formData.append('avatar', JSON.stringify(imageData.avatar))
+    try {
+        await profileAPI.updateProfile(imageData)
         // @ts-ignore
         dispatch(getProfile())
         dispatch(setAppStatusAC('succeeded'))
