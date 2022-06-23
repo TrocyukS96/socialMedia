@@ -31,6 +31,7 @@ export const Profile: FC<IPropsType> = () => {
   const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
   const history = useHistory();
   const { userId } = useParams<any>();
+  const currentUserId = useSelector<AppRootType, number | null>((state) => state.profilePage.userId);
   const [open, setOpen] = useState(false);
   const status = useSelector<AppRootType, RequestStatusType>(
     (state) => state.app.status
@@ -86,9 +87,11 @@ export const Profile: FC<IPropsType> = () => {
                 <span>
                   {profile.first_name} {profile.last_name}
                 </span>
-                <IconButton onClick={() => setOpen(true)}>
-                  <EditIcon />
-                </IconButton>
+                {!userId &&
+                    <IconButton onClick={() => setOpen(true)}>
+                      <EditIcon />
+                    </IconButton>
+                }
               </h1>
               <span className={s.title}>@{profile.username}</span>
             </div>

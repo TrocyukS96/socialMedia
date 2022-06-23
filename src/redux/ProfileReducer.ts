@@ -11,7 +11,7 @@ import {toast} from "react-hot-toast";
 const initialState = {
     profile: {} as ProfileResponse,
     posts: [] as Post[],
-    authId: null as number | null
+    userId: null as number | null
 }
 
 
@@ -24,7 +24,7 @@ export const profileReducer = (state: initialStateType = initialState, action: A
             return {...state, posts: action.payload}
         }
         case "PROFILE/SET-AUTH-ID": {
-            return {...state, authId: action.id}
+            return {...state, userId: action.id}
         }
 
         default:
@@ -58,6 +58,7 @@ export const getProfile = ():ThunkType => async (dispatch: Dispatch,getState:()=
     try {
         const res = await profileAPI.setProfile()
         dispatch(getUserProfile(res.data.data))
+        dispatch(setAuthIdAC(res.data.data.id))
 
         // @ts-ignore
         dispatch(getProfilePosts(getState().profilePage.profile.id,{limit: 100, offset: 0}))

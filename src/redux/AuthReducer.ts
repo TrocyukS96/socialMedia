@@ -78,6 +78,8 @@ export const logout = (data: LogOutParamsType) => async (dispatch: Dispatch<Acti
         dispatch(setIsLoggedInAC(false))
         dispatch(setIsAuthAC(false))
         dispatch(setAppStatusAC('succeeded'))
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
     } catch (e) {
         dispatch(setErrorAc(e.response.error))
         dispatch(setAppStatusAC('failed'))

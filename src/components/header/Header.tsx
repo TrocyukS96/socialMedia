@@ -12,9 +12,6 @@ import LogoSVG from "../../assets/LogoSVG.svg";
 function Header() {
   const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
   const history = useHistory();
-  const authId = useSelector<AppRootType, number | null>(
-    (state) => state.profilePage.authId
-  );
   const dispatch = useDispatch();
   const logOutHandler = () => {
     dispatch(logout({ device_id: device_id }));

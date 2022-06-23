@@ -4,7 +4,7 @@ import {IconButton, Paper} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {Comment} from "../../../components/comment/Comment";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addPostComment, getPostsComments, removePost, updatePost} from "../../../redux/PostsReducer";
 import {AddPostParams, CommentType} from "../../../api/types/post";
 import {AddComment} from "../../../components/addComment/AddComment";
@@ -13,6 +13,7 @@ import {toCorrectTime} from "../../../utils/toCorrectTime";
 import {PostModal} from "../../../components/postModal/PostModal";
 import EditIcon from '@mui/icons-material/Edit';
 import {NavLink} from "react-router-dom";
+import {AppRootType} from "../../../redux/redux-store";
 
 interface IProps {
     firstName: string
@@ -55,6 +56,7 @@ export const ProfilePost: FC<IProps> = (
     const [likedStatus, setLikedStatus] = useState(isLiked)
     const [openComments, setOpenComments] = useState(false)
     const [open, setOpen] = useState(false)
+    const currentUserId = useSelector<AppRootType, number | null>((state) => state.profilePage.userId);
     const dispatch = useDispatch()
 
     const changeStatusHandler = () => {
@@ -94,11 +96,11 @@ export const ProfilePost: FC<IProps> = (
                                 : <span>{firstName} {lastName}</span>
                             }
                             {
-                                isPostsPage &&
+                                isPostsPage && userId===currentUserId &&
                                 <IconButton onClick={() => setOpen(true)}><EditIcon/></IconButton>
                             }
                             {
-                                isPostsPage &&
+                                isPostsPage && userId===currentUserId &&
                                 <IconButton size="large" onClick={remoPostHandler} className={s.removeBtn}><DeleteIcon/></IconButton>
                             }
                         </h4>

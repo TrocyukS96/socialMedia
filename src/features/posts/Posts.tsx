@@ -13,6 +13,7 @@ import { RequestStatusType } from "../../redux/appReducer";
 
 export const Posts = () => {
   const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
+
   const posts = useSelector<AppRootType, Post[]>(
     (state) => state.postsReducer.posts
   );
