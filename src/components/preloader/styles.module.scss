@@ -3,10 +3,19 @@
 .preloader{
   height: 100vh;
   @include flexEdit(center,center);
-
-  img {
-    transform: translateY(-100px);
-    width: 100px;
+  .imgWrap{
     height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+    @include flexEdit(center,center);
+
+    background-color: $MainColor;
+    img {
+      transform: translateY(-100px);
+      width: 100px;
+      height: 100px;
+    }
   }
+
 }
