@@ -1,16 +1,14 @@
-@import './../../../styles/mixins.module';
-@import './../../../styles/vars.module';
+@import "./../../../styles/mixins.module";
+@import "./../../../styles/vars.module";
 
 .infoCard {
   padding: 20px;
   text-align: center;
 
   .title {
-
   }
 
   .inputsBlock {
-
     .inputWrap {
       h6 {
         text-align: left;
@@ -20,9 +18,12 @@
         width: 100%;
       }
     }
-  .btnWrap{
-    margin-top: 20px;
-  }
-  }
+    .btnWrap {
+      margin-top: 20px;
 
+      .applyButton{
+        background-color: $MainColor;
+      }
+    }
+  }
 }

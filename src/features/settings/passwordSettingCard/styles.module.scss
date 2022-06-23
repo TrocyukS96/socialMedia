@@ -1,3 +1,5 @@
+@import './../../../styles/vars.module.scss';
+
 .passwordCard {
   padding: 20px;
   text-align: center;
@@ -14,6 +16,10 @@
     }
     .btnWrap{
       margin-top: 20px;
+
+      .applyButton{
+        background-color: $MainColor;
+      }
     }
   }
 }

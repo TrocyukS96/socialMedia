@@ -8,12 +8,10 @@
 
   .inner {
 
-
     @include flexEdit(flex-start, center, row, 40px);
 
     .imgBlock {
       text-align: center;
-
       h5 {
         margin-bottom: 20px;
       }
@@ -27,6 +25,10 @@
 
     .textBlock {
       @include flexEdit(flex-start, flex-start, column, 10px);
+
+      .applyButton{
+        background-color: $MainColor;
+      }
     }
   }
 }
