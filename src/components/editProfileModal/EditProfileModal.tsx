@@ -3,6 +3,7 @@ import {Box, Button, Checkbox, FormControlLabel, SelectChangeEvent, TextField} f
 import s from './styles.module.scss';
 import {FC, useState} from "react";
 import {useFormik} from "formik";
+import {topics} from "../../utils/topics";
 
 interface IProps {
     title: string
@@ -24,7 +25,6 @@ interface InitialValuesType {
     // interests: string[],
 }
 
-const topics = 'WEB_DEVELOPMENT,DATA_SCIENCE,ANDROID_DEVELOPMENT,IOS_DEVELOPMENT,QUALITY_ASSISTANCE,DESIGN'.split(',')
 
 export const EditProfileModal: FC<IProps> = ({
                                                  title,
@@ -129,19 +129,19 @@ export const EditProfileModal: FC<IProps> = ({
                                     topics.map((topic, index) => {
                                         return (
                                             <FormControlLabel
-                                                value={topic}
-                                                checked={interests && interests.includes(topic)}
+                                                value={topic.value}
+                                                checked={interests && interests.includes(topic.value)}
                                                 control={<Checkbox
                                                     onChange={(e) => {
                                                         if (e.currentTarget.checked) {
-                                                            setInterests([...interests,topic])
+                                                            setInterests([...interests,topic.value])
                                                             console.log(interests)
                                                         } else {
-                                                            setInterests(interests.filter(f=>f!==topic))
+                                                            setInterests(interests.filter(f=>f!==topic.value))
                                                             console.log(interests)
                                                         }
                                                     }}/>}
-                                                label={topic}
+                                                label={topic.label}
                                                 labelPlacement="end"
 
                                             />

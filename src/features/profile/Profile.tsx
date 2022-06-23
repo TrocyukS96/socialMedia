@@ -17,6 +17,8 @@ import { EditProfileModal } from "../../components/editProfileModal/EditProfileM
 import EditIcon from "@mui/icons-material/Edit";
 import { RequestStatusType } from "../../redux/appReducer";
 import { Preloader } from "../../components/preloader/Preloader";
+import { topics } from "../../utils/topics";
+import { findLabelByValue } from "../../utils/findLabelByValue";
 
 interface IPropsType {}
 
@@ -31,7 +33,9 @@ export const Profile: FC<IPropsType> = () => {
   const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
   const history = useHistory();
   const { userId } = useParams<any>();
-  const currentUserId = useSelector<AppRootType, number | null>((state) => state.profilePage.userId);
+  const currentUserId = useSelector<AppRootType, number | null>(
+    (state) => state.profilePage.userId
+  );
   const [open, setOpen] = useState(false);
   const status = useSelector<AppRootType, RequestStatusType>(
     (state) => state.app.status
@@ -87,17 +91,18 @@ export const Profile: FC<IPropsType> = () => {
                 <span>
                   {profile.first_name} {profile.last_name}
                 </span>
-                {!userId &&
-                    <IconButton onClick={() => setOpen(true)}>
-                      <EditIcon />
-                    </IconButton>
-                }
+                {!userId && (
+                  <IconButton onClick={() => setOpen(true)}>
+                    <EditIcon />
+                  </IconButton>
+                )}
               </h1>
               <span className={s.title}>@{profile.username}</span>
             </div>
           </div>
           <div className={s.interests}>
-            <span>Интересы:</span> {renderInterests()}
+            <span>Мои интересы:</span>{" "}
+            {findLabelByValue(profile.interests).join(", ")}
           </div>
         </Card>
         <Divider />
