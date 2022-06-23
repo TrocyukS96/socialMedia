@@ -2,8 +2,8 @@ import {Dispatch} from "redux";
 import {AppRootType} from "./redux-store";
 import {ThunkAction} from 'redux-thunk';
 import {ProfileResponse, UpdateProfileParams} from "../api/types/profile";
-import {Post, PostParams} from "../api/types/post";
-import {profileAPI} from "../api/api";
+import {CommentType, Post, PostParams} from "../api/types/post";
+import {postsAPI, profileAPI} from "../api/api";
 import {setAppStatusAC, SetIsAuthAC, setIsAuthAC} from "./appReducer";
 import {setErrorAc, setIsLoggedInAC, setLoggedInActionType} from "./AuthReducer";
 import {toast} from "react-hot-toast";
@@ -14,7 +14,6 @@ const initialState = {
     userId: null as number | null
 }
 
-
 export const profileReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "PROFILE/SET-USER-PROFILE": {
@@ -22,6 +21,10 @@ export const profileReducer = (state: initialStateType = initialState, action: A
         }
         case "PROFILE/SET-PROFILE-POSTS": {
             return {...state, posts: action.payload}
+        }
+        case "PROFILE/SET-POST-COMMENT": {
+            debugger
+            return {...state, posts: state.posts.map(p=>p.id===action.id ? {...p,comments:action.payload} : p)}
         }
         case "PROFILE/SET-AUTH-ID": {
             return {...state, userId: action.id}
@@ -52,6 +55,15 @@ export const setAuthIdAC = (id: number) => {
     } as const
 }
 
+const setPostComments = (id:number,payload:CommentType[]) => {
+    debugger
+    return {
+        type: "PROFILE/SET-POST-COMMENT",
+        id,
+        payload
+    } as const
+}
+
 //thunks
 export const getProfile = (): ThunkType => async (dispatch: Dispatch, getState: () => AppRootType) => {
     dispatch(setAppStatusAC('loading'))
@@ -63,6 +75,17 @@ export const getProfile = (): ThunkType => async (dispatch: Dispatch, getState: 
         // @ts-ignore
         dispatch(getProfilePosts(getState().profilePage.profile.id, {limit: 100, offset: 0}))
         dispatch(setAppStatusAC('succeeded'))
+
+    } catch (e) {
+        dispatch(setErrorAc(e.response.error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+export const getProfilePostComments = (id:number,params:PostParams) => async (dispatch: Dispatch) => {
+    debugger
+    try {
+        const res =await postsAPI.setPostComments(id,params)
+        dispatch(setPostComments(id,res.data.data))
 
     } catch (e) {
         dispatch(setErrorAc(e.response.error))
@@ -172,6 +195,7 @@ type ActionsType =
     | ReturnType<typeof setAuthIdAC>
     | SetIsAuthAC
     | setLoggedInActionType
+    | ReturnType<typeof setPostComments>
 
 
 type ThunkType = ThunkAction<any, AppRootType, {}, ActionsType>

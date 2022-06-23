@@ -20,6 +20,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CommentIcon from "@mui/icons-material/Comment";
 import { NavLink } from "react-router-dom";
 import { AppRootType } from "../../../redux/redux-store";
+import {getProfilePostComments} from "../../../redux/ProfileReducer";
 
 interface IProps {
   firstName: string;
@@ -70,7 +71,14 @@ export const ProfilePost: FC<IProps> = ({
   };
   const getCommentsHandler = () => {
     setOpenComments(!openComments);
-    dispatch(getPostsComments(id, { limit: 100, offset: 0 }));
+    if(isPostsPage){
+      dispatch(getPostsComments(id, { limit: 100, offset: 0 }));
+
+    }
+    if(!isPostsPage){
+      dispatch(getProfilePostComments(id,{ limit: 100, offset: 0 }))
+    }
+
   };
 
   const addComment = (text: string) => {
@@ -140,24 +148,16 @@ export const ProfilePost: FC<IProps> = ({
       </div>
       <div className={s.bottom}>
         <div className={s.favouriteBlock}>
-          {isPostsPage ? (
             <IconButton
               onClick={changeStatusHandler}
               className={s.favouriteBtn}
             >
               {likedStatus ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
-          ) : (
-            <FavoriteBorderIcon />
-          )}
-
           {likesCount > 0 ? <div>{likesCount}</div> : ""}
         </div>
         <div className={s.commentsView}>
-          <CommentIcon
-            className={s.commentBlock}
-            onClick={getCommentsHandler}
-          ></CommentIcon>
+          <CommentIcon className={s.commentBlock} onClick={getCommentsHandler}/>
           <span>{commentsCount > 0 ? <div>{commentsCount}</div> : ""}</span>
         </div>
       </div>
@@ -176,7 +176,7 @@ export const ProfilePost: FC<IProps> = ({
                 );
               })
             : ""}
-          {isPostsPage && <AddComment addComment={addComment} />}
+          <AddComment addComment={addComment} />
         </div>
       ) : (
         ""
