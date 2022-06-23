@@ -116,10 +116,6 @@ export const updateProfile = (profileData: UpdateProfileParams) => async (dispat
 export const updateProfileImage = (imageData: any) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     const formData = new FormData()
-    const sendData = {
-        size: {width: 1440, height: 1440},
-        url: imageData.avatar
-    }
     formData.append('avatar', imageData.avatar)
     try {
         await profileAPI.updateProfile(formData)
