@@ -97,7 +97,7 @@ export const Profile: FC<IPropsType> = () => {
             </div>
           </div>
           <div className={s.interests}>
-            <span>Мои интересы:</span> {renderInterests()}
+            <span>Интересы:</span> {renderInterests()}
           </div>
         </Card>
         <Divider />
