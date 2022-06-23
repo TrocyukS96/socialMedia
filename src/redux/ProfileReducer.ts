@@ -53,7 +53,7 @@ export const setAuthIdAC = (id: number) => {
 }
 
 //thunks
-export const getProfile = ():ThunkType => async (dispatch: Dispatch,getState:()=>AppRootType) => {
+export const getProfile = (): ThunkType => async (dispatch: Dispatch, getState: () => AppRootType) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await profileAPI.setProfile()
@@ -61,7 +61,7 @@ export const getProfile = ():ThunkType => async (dispatch: Dispatch,getState:()=
         dispatch(setAuthIdAC(res.data.data.id))
 
         // @ts-ignore
-        dispatch(getProfilePosts(getState().profilePage.profile.id,{limit: 100, offset: 0}))
+        dispatch(getProfilePosts(getState().profilePage.profile.id, {limit: 100, offset: 0}))
         dispatch(setAppStatusAC('succeeded'))
 
     } catch (e) {
@@ -75,7 +75,7 @@ export const getProfileById = (id: number) => async (dispatch: Dispatch) => {
         debugger
         const res = await profileAPI.getProfileById(id)
         // @ts-ignore
-        dispatch(getProfilePosts(id,{limit: 100, offset: 0}))
+        dispatch(getProfilePosts(id, {limit: 100, offset: 0}))
         dispatch(getUserProfile(res.data.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -85,17 +85,17 @@ export const getProfileById = (id: number) => async (dispatch: Dispatch) => {
 }
 export const getProfilePosts = (id: number, params: PostParams) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    try{
+    try {
         const res = await profileAPI.setProfilePosts(id, params)
         dispatch(getProfilePostsAC(res.data.data))
         dispatch(setAppStatusAC('succeeded'))
-    }catch (e) {
+    } catch (e) {
         dispatch(setErrorAc(e.response.error))
         dispatch(setAppStatusAC('failed'))
     }
 }
 
-export const updateProfile = (profileData: UpdateProfileParams) => async (dispatch:Dispatch) => {
+export const updateProfile = (profileData: UpdateProfileParams) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     const formData = new FormData()
     formData.append('update_params', JSON.stringify(profileData))
@@ -113,12 +113,16 @@ export const updateProfile = (profileData: UpdateProfileParams) => async (dispat
     }
 }
 
-export const updateProfileImage = (imageData:{avatar:string}) => async (dispatch:Dispatch) => {
+export const updateProfileImage = (imageData: any) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     const formData = new FormData()
-    formData.append('avatar', JSON.stringify(imageData.avatar))
+    const sendData = {
+        size: {width: 1440, height: 1440},
+        url: imageData.avatar
+    }
+    formData.append('avatar', imageData.avatar)
     try {
-        await profileAPI.updateProfile(imageData)
+        await profileAPI.updateProfile(formData)
         // @ts-ignore
         dispatch(getProfile())
         dispatch(setAppStatusAC('succeeded'))
@@ -130,7 +134,7 @@ export const updateProfileImage = (imageData:{avatar:string}) => async (dispatch
     }
 }
 
-export const changeProfilePassword = (profileData: { old_password_hash: any, new_password_hash: any }) => async (dispatch:Dispatch) => {
+export const changeProfilePassword = (profileData: { old_password_hash: any, new_password_hash: any }) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await profileAPI.changePassword(profileData)
@@ -146,7 +150,7 @@ export const changeProfilePassword = (profileData: { old_password_hash: any, new
     }
 }
 
-export const searchProfile = (value: string) => async (dispatch:Dispatch) => {
+export const searchProfile = (value: string) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await profileAPI.searchProfile(value)

@@ -26,7 +26,7 @@ export const profileAPI = {
             }
         })
     },
-    updateProfile(profileData: any, avatar?: string) {
+    updateProfile(profileData: any) {
         return instance.put('/user/update', profileData)
     },
     changePassword(params: { old_password_hash: any, new_password_hash: any }) {

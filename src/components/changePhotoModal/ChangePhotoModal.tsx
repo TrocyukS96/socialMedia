@@ -28,23 +28,26 @@ export const ChangePhotoModal: FC<IProps> = ({
     const [fileData, setFileData] = useState<any>();
     const dispatch = useDispatch()
 
+    const fileByteArray = [] as any[]
+
     const upload = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         // e.preventDefault();
         const reader = new FileReader();
         const formData = new FormData(); // for send to back
 
         const newFile = e.target.files && e.target.files[0];  //достаем из таргета файлы, если файлы есть - прилетает массив, откуда достаем 0
-
+        console.log(e.target.files)
 
         if (newFile) {
             setFile(newFile);
             setFileURL(window.URL.createObjectURL(newFile));  //спецовая функция Window, так мы можем отобразить newFile в img, эта функция генерит спец ссылку, которая видна только внутри этого проекта
-            formData.append('myFile', newFile, newFile.name);
+            // formData.append('avatar', newFile, newFile.name);
+            formData.append('avatar', newFile);
             setFileData(formData);
 
             if (code) { // reader
                 reader.onloadend = () => {
+                    console.log(reader)
                     setFile64(reader.result);
                 };
 
@@ -53,8 +56,30 @@ export const ChangePhotoModal: FC<IProps> = ({
             }
         }
     };
+
+    const changedUpload = (e: ChangeEvent<HTMLInputElement>) => {
+        const reader = new FileReader();
+        // @ts-ignore
+        reader.readAsArrayBuffer(e?.target?.files[0])
+        reader.onloadend = (evt) => {
+            if (evt?.target?.readyState === FileReader.DONE) {
+                const arrayBuffer = evt?.target?.result,
+                    //@ts-ignore
+                    array = new Uint8Array(arrayBuffer)
+                // @ts-ignore
+                for (const a of array) {
+                    fileByteArray.push(a)
+                }
+            }
+
+
+            console.log(fileByteArray)
+
+        };
+    }
     const saveDataHandler = () => {
-        dispatch(updateProfileImage({avatar: file64.split(',')[1]}))
+        // dispatch(updateProfileImage({avatar: file64.split(',')[1]}))
+        dispatch(updateProfileImage({avatar: file64}))
     }
     return (
         <Modal open={isOpen} onClose={handleClose}>
