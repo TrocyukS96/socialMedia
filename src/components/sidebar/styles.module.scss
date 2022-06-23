@@ -3,20 +3,23 @@
   width: 130px;
   padding: 10px;
   grid-area: sidebar;
-  background-color: #c5bcbc;
+  background-color: #fff;
   box-shadow: $boxShadow;
 
   .sidebarItem {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
     background-color: inherit;
-    padding-left: 25px;
     border-radius: 10px;
     transition: all 0.3s ease-in;
   }
-
+  .logoIcon{
+    color: $MainColor;
+  }
+  
   .sidebarItem:hover {
     transform: scale(1.1);
   }
@@ -32,6 +35,6 @@
 
 .activeLink{
   .logoIcon{
-    fill: #9c27b0;
+    fill: #E96344;
   }
 }

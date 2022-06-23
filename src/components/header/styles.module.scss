@@ -1,45 +1,35 @@
 .header {
   grid-area: header;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 20px;
-
-  //background-image:url("./../../assets/images/header/1366x768_px_birds_Colorful_Instagram_Internet_Internet_Explorer_LinkedIn_Pink-1290439.jpg");
-  //background-position: center center;
-  //background-attachment: fixed;
-  //background-size: cover;
-  background-color: rgb(25, 118, 210);
+  background-color: #002DE3;
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px;
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
-  border-radius: 50%;
-  background-color: white;
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
   cursor: pointer;
+  .logoText{
+    margin: 10px;
+  }
 }
 
 .headerLogin {
   font-size: 28px;
-
   text-transform: uppercase;
-
   color: #fff;
-
   .loginBtn{
     color:white;
     width: auto;
     font-size: 24px;
-
-    //border: 2px solid white;
+    border: 2px solid white;
   }
 }
 

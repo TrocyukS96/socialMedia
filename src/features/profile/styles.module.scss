@@ -4,34 +4,47 @@
 .profile {
    padding: $blockPadding;
    .inner{
-      padding: 10px;
-      @include flexEdit(flex-start,flex-start,row,40px);
-
-      .leftSide{
-         padding-left: 10px;
-         img{
-            width: 300px;
-            height: 100%;
-            object-fit: contain;
-            border-radius: $borderRadius;
-         }
-      }
-      .rightSide{
-         .title{
-            font-family: Arial;
-            @include flexEdit(flex-start,center,row, 15px);
-         }
-         .interests{
-            margin-top: 10px;
-            font-family: Arial;
-            span{
-               font-size: 20px;
-               font-weight: 500;
-
+      border-radius: $borderRadius;
+      .top{
+         width: 100%;
+         height: 300px;
+         border-radius: 10px 10px 0px 0px;
+         background-color: $MainColor;
+         position: relative;
+         .topContainer{
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            img{
+               z-index: 1;
+               border-radius: 50%;
+               width: 250px;
+               height: 250px;
+               object-fit: contain;
             }
          }
       }
-
+      .bottom{
+         margin-top: 60px;
+         padding: 10px;
+         position: relative;
+         .bottomContainer{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .title{
+               font-family: Arial;
+               color: $TextColor;
+               @include flexEdit(flex-start,center,row, 15px);
+            }
+         }
+      }
+      .interests{
+         margin-top: 30px;
+         padding: 10px;
+      }
    }
    .postsTitle{
       margin-top: 15px;
@@ -40,8 +53,5 @@
    .postsWrap{
       margin-top: 10px;
    }
-
-
-
 }
 
