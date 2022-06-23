@@ -1,23 +1,26 @@
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./styles.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {getProfile, getProfileById, updateProfile,} from "../../redux/ProfileReducer";
-import {AppRootType} from "../../redux/redux-store";
-import {useHistory, useParams, useRouteMatch} from "react-router-dom";
-import {Card, Container, Divider, IconButton} from "@mui/material";
-import {ProfileResponse, UpdateProfileParams} from "../../api/types/profile";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getProfile,
+    getProfileById,
+    updateProfile,
+} from "../../redux/ProfileReducer";
+import { AppRootType } from "../../redux/redux-store";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { Card, Container, Divider, IconButton } from "@mui/material";
+import { ProfileResponse, UpdateProfileParams } from "../../api/types/profile";
 import profileIcon from "./../../assets/images/profile/profileIcon.png";
-import {Post} from "../../api/types/post";
-import {ProfilePost} from "./post/ProfilePost";
-import {EditProfileModal} from "../../components/editProfileModal/EditProfileModal";
+import { Post } from "../../api/types/post";
+import { ProfilePost } from "./post/ProfilePost";
+import { EditProfileModal } from "../../components/editProfileModal/EditProfileModal";
 import EditIcon from "@mui/icons-material/Edit";
-import {RequestStatusType} from "../../redux/appReducer";
-import {Preloader} from "../../components/preloader/Preloader";
-import {findLabelByValue} from "../../utils/findLabelByValue";
-import {changeLikesStatus} from "../../redux/PostsReducer";
+import { RequestStatusType } from "../../redux/appReducer";
+import { Preloader } from "../../components/preloader/Preloader";
+import { topics } from "../../utils/topics";
+import { findLabelByValue } from "../../utils/findLabelByValue";
 
-interface IPropsType {
-}
+interface IPropsType {}
 
 export const Profile: FC<IPropsType> = () => {
     const dispatch = useDispatch();
@@ -29,8 +32,10 @@ export const Profile: FC<IPropsType> = () => {
     );
     const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
     const history = useHistory();
-    const {userId} = useParams<any>();
-    const currentUserId = useSelector<AppRootType, number | null>((state) => state.profilePage.userId);
+    const { userId } = useParams<any>();
+    const currentUserId = useSelector<AppRootType, number | null>(
+        (state) => state.profilePage.userId
+    );
     const [open, setOpen] = useState(false);
     const status = useSelector<AppRootType, RequestStatusType>(
         (state) => state.app.status
@@ -38,8 +43,10 @@ export const Profile: FC<IPropsType> = () => {
     const router = useRouteMatch();
 
     console.log(router.url);
-    console.log(posts)
     useEffect(() => {
+        // if (!userId) {
+        //     dispatch(getProfile())
+        // }
         if (userId) {
             dispatch(getProfileById(userId));
         }
@@ -49,19 +56,22 @@ export const Profile: FC<IPropsType> = () => {
         }
     }, [router.url]);
 
+    if (!isAuth) {
+        history.push("/login");
+    }
 
-    const changeIsLikedStatus = (id: number, likedStatus: boolean) => {
-        dispatch(changeLikesStatus(id, likedStatus));
+    const renderInterests = () => {
+        if (profile.interests) {
+            return profile.interests.join(", ");
+        }
     };
     const handleClose = () => setOpen(false);
     const editProfile = (params: UpdateProfileParams) => {
         dispatch(updateProfile(params));
     };
-    if (!isAuth) {
-        history.push("/login");
-    }
+
     if (status === "loading") {
-        return <Preloader/>;
+        return <Preloader />;
     }
     return (
         <main className={s.profile}>
@@ -81,20 +91,21 @@ export const Profile: FC<IPropsType> = () => {
                 <span>
                   {profile.first_name} {profile.last_name}
                 </span>
-                                {!userId &&
+                                {!userId && (
                                     <IconButton onClick={() => setOpen(true)}>
-                                        <EditIcon/>
+                                        <EditIcon />
                                     </IconButton>
-                                }
+                                )}
                             </h1>
                             <span className={s.title}>@{profile.username}</span>
                         </div>
                     </div>
                     <div className={s.interests}>
-                        <span>Мои интересы:</span> {findLabelByValue(profile.interests).join(', ')}
+                        <span>Мои интересы:</span>{" "}
+                        {findLabelByValue(profile.interests).join(", ")}
                     </div>
                 </Card>
-                <Divider/>
+                <Divider />
                 <div className={s.posts}>
                     <h3 className={s.postsTitle}>Мои посты</h3>
                     <div className={s.postsWrap}>
@@ -111,12 +122,11 @@ export const Profile: FC<IPropsType> = () => {
                                     time={card?.publish_time}
                                     isLiked={card?.is_user_liked}
                                     likesCount={card?.likes_count}
-                                    changeIsLikedStatus={changeIsLikedStatus}
+                                    changeIsLikedStatus={() => {}}
                                     id={card?.id}
                                     userId={card?.author.id}
                                     commentsCount={card?.comments_count}
                                     comments={card?.comments}
-                                    isPostsPage={true}
                                 />
                             );
                         })}

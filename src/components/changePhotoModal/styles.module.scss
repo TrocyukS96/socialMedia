@@ -13,7 +13,7 @@
 
   .top {
     padding: 23.5px 37px 23.5px 24px;
-    background: $blueColor;
+    background: $MainColor;
   }
 
   .title {
@@ -24,19 +24,22 @@
 
     .cancelBtn {
       border-style: none;
-
       background-color: inherit;
-
       color: red;
-
       font-weight: 500;
       font-size: 20px;
-
       position: absolute;
       top: 56%;
       left: 100%;
       transform: translateY(-50%);
     }
+  }
+
+  .applyButton{
+    background-color: $MainColor;
+  }
+  .applyButton:hover{
+    background-color: $btnHover;
   }
 
   .content {
@@ -48,10 +51,10 @@
 
       }
       img{
-        width: 130px;
-        height: 130px;
+        width: 300px;
+        height: 300px;
         object-fit: contain;
-        border-radius: 8px
+        border-radius: 50%;
       }
 
       .changeImgInput{
