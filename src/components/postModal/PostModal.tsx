@@ -4,6 +4,7 @@ import {Box, Button, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/
 import s from './styles.module.scss';
 import {FC, useState} from "react";
 import {useFormik} from "formik";
+import {topics} from "../../utils/topics";
 
 interface IProps {
     title: string
@@ -20,7 +21,6 @@ interface InitialValuesType {
     topic: string,
 }
 
-const topics = 'WEB_DEVELOPMENT,DATA_SCIENCE,ANDROID_DEVELOPMENT,QUALITY_ASSISTANCE'.split(',')
 
 export const PostModal: FC<IProps> = ({
                                           title,
@@ -105,6 +105,7 @@ export const PostModal: FC<IProps> = ({
                                     className={s.select}
                                     placeholder={'Выберите интерес'}
                                     value={topic}
+                                    defaultValue={topics[0].value}
                                     name="topic"
                                     onChange={(e) => {
                                         handleChange(e)
@@ -113,7 +114,7 @@ export const PostModal: FC<IProps> = ({
                                 >
                                     {topics.map((topic, index) => {
                                         return (
-                                            <MenuItem value={topic} key={index}>{topic}</MenuItem>
+                                            <MenuItem value={topic.value} key={index}>{topic.label}</MenuItem>
                                         )
                                     })}
                                 </Select>

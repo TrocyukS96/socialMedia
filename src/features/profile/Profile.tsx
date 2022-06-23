@@ -17,6 +17,8 @@ import { EditProfileModal } from "../../components/editProfileModal/EditProfileM
 import EditIcon from "@mui/icons-material/Edit";
 import { RequestStatusType } from "../../redux/appReducer";
 import { Preloader } from "../../components/preloader/Preloader";
+import {topics} from "../../utils/topics";
+import {findLabelByValue} from "../../utils/findLabelByValue";
 
 interface IPropsType {}
 
@@ -55,6 +57,8 @@ export const Profile: FC<IPropsType> = () => {
   if (!isAuth) {
     history.push("/login");
   }
+
+
 
   const renderInterests = () => {
     if (profile.interests) {
@@ -97,7 +101,7 @@ export const Profile: FC<IPropsType> = () => {
             </div>
           </div>
           <div className={s.interests}>
-            <span>Мои интересы:</span> {renderInterests()}
+            <span>Мои интересы:</span> {findLabelByValue(profile.interests).join(', ')}
           </div>
         </Card>
         <Divider />

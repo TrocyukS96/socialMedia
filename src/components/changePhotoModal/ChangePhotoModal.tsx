@@ -4,7 +4,9 @@ import s from './styles.module.scss';
 import {ChangeEvent, FC, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import {updateProfileImage} from "../../redux/ProfileReducer";
+import toast, { Toaster } from 'react-hot-toast';
 
+const notify = () => toast('Here is your toast.');
 interface IProps {
     image: string
     handleClose: () => void
@@ -80,6 +82,9 @@ export const ChangePhotoModal: FC<IProps> = ({
     const saveDataHandler = () => {
         // dispatch(updateProfileImage({avatar: file64.split(',')[1]}))
         dispatch(updateProfileImage({avatar: file64}))
+
+        toast('adadad')
+        notify()
     }
     return (
         <Modal open={isOpen} onClose={handleClose}>

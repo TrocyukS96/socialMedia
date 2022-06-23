@@ -127,9 +127,10 @@ export const updateProfileImage = (imageData: any) => async (dispatch: Dispatch)
         dispatch(getProfile())
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
-        dispatch(setIsAuthAC(false))
-        dispatch(setIsLoggedInAC(false))
+        // dispatch(setIsAuthAC(false))
+        // dispatch(setIsLoggedInAC(false))
         console.log(e)
+        toast.error('что-то пошло не так')
         dispatch(setAppStatusAC('failed'))
     }
 }
