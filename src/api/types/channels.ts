@@ -1,19 +1,20 @@
 import {Avatar} from "./profile";
+import {Author} from "./post";
 
 export interface ChannelsResponse{
     id: number;
     name: string;
     type: string;
     image: Avatar;
+    messages?:ChannelMessage[]
+}
+export interface ChannelMessage {
+    id: number
+    author: Author
+    text: string
+    send_time:string
 }
 
-export interface Author {
-    id: number
-    username: string
-    first_name: string
-    last_name: string
-    avatar: Avatar
-}
 
 export interface Members {
     id: number

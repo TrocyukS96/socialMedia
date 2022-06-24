@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {LoginParamsType, LogOutParamsType, RegisterParamsType} from "./types/auth";
 import {ProfileResponse} from "./types/profile";
-import {PostParams} from "./types/post";
+import {ChannelParams, PostParams} from "./types/post";
 
 export const instance = axios.create({
     baseURL: 'https://wires-api.herokuapp.com/v1/',
@@ -89,5 +89,12 @@ export const postsAPI = {
 export const chatAPI = {
     setChannels() {
         return instance.get('channels')
-    }
+    },
+    fetchMessagesById(id:number,params:ChannelParams) {
+        return instance.get(`channels/${id}/messages`,{
+            params:{
+                ...params
+            }
+        })
+    },
 }

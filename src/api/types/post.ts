@@ -45,3 +45,8 @@ export interface Author {
     avatar: Avatar
 
 }
+
+export interface ChannelParams {
+    limit: number
+    offset: number
+}

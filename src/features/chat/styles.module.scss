@@ -1,22 +1,40 @@
 @import "./../../styles/mixins.module";
 @import "./../../styles/vars.module";
 
-.chatBlock {
-  padding: $blockPadding;
-  @include flexEdit(flex-start, center, row, 50px);
-}
+.channelsBlock {
+  .chatBlock {
+    height: 80vh;
+    padding: $blockPadding;
+    display: grid;
 
-.chatCardList{
-    width: 250px;
+    grid-template-columns: 30% 60%;
+    gap: 20px;
+  }
+
+  .chatCardList {
+    margin: 10px;
     height: 400px;
     background-color: white;
     border: $borderRadius;
-}
 
-.chatMessageList{
-    width: 400px;
-    height: 400px;
-    background-color: white;
-    border: $borderRadius;
+
+    .channel {
+      cursor: pointer;
+      margin-top: 10px;
+      padding: 10px;
+      box-shadow: $boxShadow;
+      background-color: antiquewhite;
+      border-radius: $borderRadius;
+
+      @include flexEdit(flex-start, center, row, 15px);
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+      }
+    }
+  }
+
 }
 

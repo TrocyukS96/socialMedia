@@ -1,0 +1,44 @@
+@import './../../../styles/mixins.module';
+@import './../../../styles/vars.module';
+.inner {
+  .chatMessageList {
+    padding: 10px;
+    background-color: white;
+    border: $borderRadius;
+
+    .message {
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: antiquewhite;
+      border-radius: $borderRadius;
+
+      .top {
+        @include flexEdit(flex-start, center, row, 10px);
+
+        .messageImage {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+      }
+
+      .text {
+        margin-left: 40px;
+      }
+    }
+  }
+
+  .addMessageBlock {
+    margin-top: 20px;
+
+    .inputWrap {
+      .input {
+        width: 100%;
+      }
+    }
+
+    .btnWrap {
+      margin-top: 10px;
+    }
+  }
+}
