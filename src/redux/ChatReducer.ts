@@ -3,11 +3,11 @@ import { Dispatch } from "redux";
 import { ThunkAction } from 'redux-thunk';
 import { AppRootType } from "./redux-store";
 import { setAppStatusAC } from "./appReducer";
-import { Channels, CreateChannel, EditChannel, GetMessages, LastMessage } from "../api/types/channels";
+import { ChannelsResponse, CreateChannel, EditChannel, GetMessages, LastMessage } from "../api/types/channels";
 import { setErrorAc } from "./AuthReducer";
 
 const initialState = {
-    channels: [] as Channels[],
+    channels: {} as ChannelsResponse,
 }
 
 export const chatReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -20,7 +20,7 @@ export const chatReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 //actions
-export const setChannels = (payload: Channels[]) => {
+export const setChannels = (payload: ChannelsResponse) => {
     return {
         type: "CHANNELS/SET-CHANNELS",
         payload
