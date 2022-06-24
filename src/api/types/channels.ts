@@ -1,6 +1,6 @@
 import {Avatar} from "./profile";
 
-export interface Channel{
+export interface Channels{
     id: number;
     name: string;
     type: string;
