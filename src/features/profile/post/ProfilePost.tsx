@@ -20,7 +20,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import CommentIcon from "@mui/icons-material/Comment";
 import { NavLink } from "react-router-dom";
 import { AppRootType } from "../../../redux/redux-store";
-import {getProfilePostComments} from "../../../redux/ProfileReducer";
+import { getProfilePostComments } from "../../../redux/ProfileReducer";
+import Avatar from "./../../../assets/Avatar.svg";
 
 interface IProps {
   firstName: string;
@@ -71,21 +72,17 @@ export const ProfilePost: FC<IProps> = ({
   };
   const getCommentsHandler = () => {
     setOpenComments(!openComments);
-    if(isPostsPage){
+    if (isPostsPage) {
       dispatch(getPostsComments(id, { limit: 100, offset: 0 }));
-
     }
-    if(!isPostsPage){
-      dispatch(getProfilePostComments(id,{ limit: 100, offset: 0 }))
+    if (!isPostsPage) {
+      dispatch(getProfilePostComments(id, { limit: 100, offset: 0 }));
     }
-
   };
-
   const addComment = (text: string) => {
     debugger;
     dispatch(addPostComment(id, text));
   };
-
   const remoPostHandler = () => {
     dispatch(removePost(id));
   };
@@ -100,10 +97,10 @@ export const ProfilePost: FC<IProps> = ({
         <div className={s.top}>
           {isPostsPage ? (
             <NavLink to={`profile/${userId}`}>
-              <img src={image} alt=" userImage" />{" "}
+              <img src={image ? image : Avatar} alt="userImage"/>{" "}
             </NavLink>
           ) : (
-            <img src={image} alt=" userImage" />
+            <img src={image ? image : Avatar} alt="userImage"/>
           )}
           <div className={s.topText}>
             <h4 className={s.title}>
@@ -148,16 +145,16 @@ export const ProfilePost: FC<IProps> = ({
       </div>
       <div className={s.bottom}>
         <div className={s.favouriteBlock}>
-            <IconButton
-              onClick={changeStatusHandler}
-              className={s.favouriteBtn}
-            >
-              {likedStatus ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-            </IconButton>
+          <IconButton onClick={changeStatusHandler} className={s.favouriteBtn}>
+            {likedStatus ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
           {likesCount > 0 ? <div>{likesCount}</div> : ""}
         </div>
         <div className={s.commentsView}>
-          <CommentIcon className={s.commentBlock} onClick={getCommentsHandler}/>
+          <CommentIcon
+            className={s.commentBlock}
+            onClick={getCommentsHandler}
+          />
           <span>{commentsCount > 0 ? <div>{commentsCount}</div> : ""}</span>
         </div>
       </div>
