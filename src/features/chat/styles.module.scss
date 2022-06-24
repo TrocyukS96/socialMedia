@@ -1,0 +1,22 @@
+@import "./../../styles/mixins.module";
+@import "./../../styles/vars.module";
+
+.chatBlock {
+  padding: $blockPadding;
+  @include flexEdit(flex-start, center, row, 50px);
+}
+
+.chatCardList{
+    width: 250px;
+    height: 400px;
+    background-color: white;
+    border: $borderRadius;
+}
+
+.chatMessageList{
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    border: $borderRadius;
+}
+

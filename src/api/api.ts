@@ -86,4 +86,8 @@ export const postsAPI = {
 
 }
 
-
+export const chatAPI = {
+    setChannels() {
+        return instance.get('channels')
+    }
+}
