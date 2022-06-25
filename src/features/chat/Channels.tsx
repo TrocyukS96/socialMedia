@@ -25,7 +25,7 @@ export const Channels = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   if (!isAuth) {
-    history.push("/login");
+    history.push("socialMedia/login");
   }
   const status = useSelector<AppRootType, RequestStatusType>(
     (state) => state.app.status

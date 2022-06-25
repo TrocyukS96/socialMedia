@@ -52,7 +52,6 @@ export const Profile: FC<IPropsType> = () => {
     }
     if (router.url === "/profile") {
       dispatch(getProfile());
-      console.log("dadada");
     }
   }, [router.url]);
 

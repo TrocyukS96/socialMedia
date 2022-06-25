@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Sidebar from '../../components/sidebar/Sidebar';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 
 import {Preloader} from "../../components/preloader/Preloader";
 import Header from "../../components/header/Header";
@@ -22,7 +22,7 @@ export const App = () => {
         return <Preloader/>
     } else
         return (
-            <BrowserRouter>
+            <HashRouter>
 
                 <div className={s.appWrapper}>
                     <Header/>
@@ -31,7 +31,7 @@ export const App = () => {
                     </div>
                     <Sidebar/>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         )
 }
 

@@ -112,15 +112,10 @@ export const chatAPI = {
                 text: "chat"
             }));
         };
-        ws.addEventListener('message', (e) => {
-            console.log(e)
-            ws.send(JSON.stringify({
-                text: "client1"
-            }));
-        };
 
 
-    },
+
+    }
 }
 
 
