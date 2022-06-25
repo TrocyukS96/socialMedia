@@ -11,6 +11,7 @@ import s from "./styles.module.scss";
 import {getChannels, getMessagesById} from "../../redux/ChatReducer";
 import {ChannelMessages} from "./channelMessages/ChannelMessages";
 import {ChannelParams} from "../../api/types/post";
+import {AddChannelModal} from "../../components/addChannelModal/AddChannelModal";
 
 const messages=[
   {name:'Ivan',text:'loremaadadadadad'},
@@ -83,6 +84,8 @@ export const Channels = () => {
         </Paper>
       <ChannelMessages messages={currentMessages} channelId={localId}/>
       </div>
+
+      <AddChannelModal title={'Создать новый чат'} isOpen={open} handleClose={handleClose} />
     </div>
   );
 };

@@ -26,6 +26,10 @@ export const profileReducer = (state: initialStateType = initialState, action: A
             debugger
             return {...state, posts: state.posts.map(p=>p.id===action.id ? {...p,comments:action.payload} : p)}
         }
+        case "PROFILE/FILTER-PROFILE-POSTS": {
+            debugger
+            return {...state, posts: state.posts.filter(f=>f.id!==action.id)}
+        }
         case "PROFILE/SET-AUTH-ID": {
             return {...state, userId: action.id}
         }
@@ -46,6 +50,12 @@ export const getProfilePostsAC = (payload: Post[]) => {
     return {
         type: "PROFILE/SET-PROFILE-POSTS",
         payload
+    } as const
+}
+export const filterProfilePostsAC = (id: number) => {
+    return {
+        type: "PROFILE/FILTER-PROFILE-POSTS",
+        id
     } as const
 }
 export const setAuthIdAC = (id: number) => {
@@ -189,6 +199,8 @@ export const searchProfile = (value: string) => async (dispatch: Dispatch) => {
 type initialStateType = typeof initialState
 export type getUserProfileAT = ReturnType<typeof getUserProfile>
 
+export type FilterProfilePostsAT = ReturnType<typeof filterProfilePostsAC>
+
 type ActionsType =
     getUserProfileAT
     | ReturnType<typeof getProfilePostsAC>
@@ -196,6 +208,7 @@ type ActionsType =
     | SetIsAuthAC
     | setLoggedInActionType
     | ReturnType<typeof setPostComments>
+    | FilterProfilePostsAT
 
 
 type ThunkType = ThunkAction<any, AppRootType, {}, ActionsType>

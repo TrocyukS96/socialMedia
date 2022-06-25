@@ -90,6 +90,9 @@ export const chatAPI = {
     setChannels() {
         return instance.get('channels')
     },
+    createChannel(params:any) {
+        return instance.post('channels/create',params)
+    },
     fetchMessagesById(id: number, params: ChannelParams) {
         return instance.get(`channels/${id}/messages`, {
             params: {

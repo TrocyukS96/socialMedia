@@ -14,6 +14,14 @@ export interface ChannelMessage {
     text: string
     send_time:string
 }
+export interface CreateChannelParams {
+    create_params:{
+        name:string
+        type:string
+        members_ids:number[]
+    }
+    image:string
+}
 
 
 export interface Members {

@@ -5,6 +5,7 @@ import {AddPostParams, CommentType, Post, PostParams} from "../api/types/post";
 import {postsAPI} from "../api/api";
 import {setAppStatusAC} from "./appReducer";
 import {setErrorAc} from "./AuthReducer";
+import {filterProfilePostsAC, FilterProfilePostsAT, getProfilePosts} from "./ProfileReducer";
 
 const initialState = {
     posts: [] as Post[],
@@ -61,12 +62,13 @@ export const getPosts = (params:PostParams) => async (dispatch: Dispatch) => {
         dispatch(setAppStatusAC('failed'))
     }
 }
-export const removePost = (id:number) => async (dispatch: Dispatch) => {
+export const removePost = (id:number) => async (dispatch: Dispatch,getState:()=>AppRootType) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await postsAPI.deletePost(id)
         // @ts-ignore
         dispatch(getPosts({limit: 10, offset: 0}))
+        dispatch(filterProfilePostsAC(id))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setErrorAc(e.response.error))
@@ -155,6 +157,7 @@ type ActionsType =
     | ReturnType<typeof setPosts>
     | ReturnType<typeof setIsLikedStatus>
     | ReturnType<typeof setPostComments>
+    | FilterProfilePostsAT
 
 
 type ThunkType = ThunkAction<any, AppRootType, {}, ActionsType>

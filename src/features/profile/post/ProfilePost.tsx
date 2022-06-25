@@ -116,12 +116,12 @@ export const ProfilePost: FC<IProps> = ({
                   {firstName} {lastName}
                 </span>
               )}
-              {isPostsPage && userId === currentUserId && (
+              { userId === currentUserId && (
                 <IconButton onClick={() => setOpen(true)}>
                   <EditIcon />
                 </IconButton>
               )}
-              {isPostsPage && userId === currentUserId && (
+              { userId === currentUserId && (
                 <IconButton
                   size="large"
                   onClick={remoPostHandler}
