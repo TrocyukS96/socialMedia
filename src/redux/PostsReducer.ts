@@ -107,12 +107,18 @@ export const addPostComment = (id:number,text:string): ThunkType => async (dispa
 }
 export const addPost = (params:AddPostParams): ThunkType => async (dispatch: Dispatch,getState: () => AppRootType) => {
     dispatch(setAppStatusAC('loading'))
+    debugger
     const addPostData = {
             text: params.create_params.text,
             topic: params.create_params.topic
     }
+    const addImageData = {
+        image: params.image,
+    }
     const formData= new FormData()
     formData.append('create_params',JSON.stringify(addPostData))
+    // @ts-ignore
+    formData.append('image',addImageData.image)
     try {
         await postsAPI.createPost(formData)
         // @ts-ignore

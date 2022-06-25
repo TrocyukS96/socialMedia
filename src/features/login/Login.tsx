@@ -7,7 +7,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import s from "./styles.module.scss";
 import { login } from "../../redux/AuthReducer";
-import { useFormik } from "formik";
+import {FormikErrors, useFormik} from "formik";
 import { Button, TextField } from "@mui/material";
 import { AppRootType } from "../../redux/redux-store";
 import { device_id } from "../../utils/constants";
@@ -20,16 +20,25 @@ interface InitialValuesType {
 export const Login: React.FC<any> = (props) => {
   //hooks
   const isAuth = useSelector<AppRootType, boolean>((state) => state.app.isAuth);
-  const isLoggedIn = useSelector<AppRootType, boolean>(
-    (state) => state.auth.isLoggedIn
-  );
+
   const dispatch = useDispatch();
-  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       email: "test1@test.com",
       password_hash: "123456",
     } as InitialValuesType,
+    validate: (values: InitialValuesType) => {
+      let errors: FormikErrors<InitialValuesType> = {};
+      if (!values.email) {
+        errors.email = 'Заполните поле';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Неправильный email адрес';
+      }
+      if (!values.password_hash) {
+        errors.password_hash = 'Введите пороль';
+      }
+      return errors;
+    },
     onSubmit: (values) => {
       dispatch(
         login({
@@ -104,8 +113,12 @@ export const Login: React.FC<any> = (props) => {
                 type="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
+                style={formik.errors.email ? {border:'2px solid red'} : {}}
               />
+
             </Box>
+            {formik.errors.email && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.email}</span>}
+
           </div>
           <div className={s.inputWrap}>
             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -119,8 +132,11 @@ export const Login: React.FC<any> = (props) => {
                 type="password"
                 onChange={formik.handleChange}
                 value={formik.values.password_hash}
+                style={formik.errors.password_hash ? {border:'2px solid red'} : {}}
               />
             </Box>
+            {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
+
           </div>
           <div className={s.btnWrap}>
             <Button type="submit" variant={"contained"} className={s.formBtn}>

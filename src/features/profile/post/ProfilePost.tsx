@@ -22,6 +22,7 @@ import { NavLink } from "react-router-dom";
 import { AppRootType } from "../../../redux/redux-store";
 import { getProfilePostComments } from "../../../redux/ProfileReducer";
 import Avatar from "./../../../assets/Avatar.svg";
+import {changeTopicLabel} from "../../../utils/changeTopicLabel";
 
 interface IProps {
   firstName: string;
@@ -131,7 +132,7 @@ export const ProfilePost: FC<IProps> = ({
               )}
             </h4>
             <div className={s.time}>{toCorrectTime(time, true)}</div>
-            <span className={s.topic}>{topic}</span>
+            <span className={s.topic}>{changeTopicLabel(topic)}</span>
           </div>
         </div>
         <div className={s.content}>

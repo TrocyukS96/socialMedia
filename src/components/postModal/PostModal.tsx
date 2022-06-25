@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 
 import s from "./styles.module.scss";
-import { FC, useState } from "react";
-import { useFormik } from "formik";
+import {ChangeEvent, FC, useRef, useState} from "react";
+import {FormikErrors, useFormik} from "formik";
+import {topics} from "../../utils/topics";
 
 interface IProps {
     title: string;
@@ -27,10 +28,7 @@ interface InitialValuesType {
     topic: string;
 }
 
-const topics =
-    "WEB_DEVELOPMENT,DATA_SCIENCE,ANDROID_DEVELOPMENT,QUALITY_ASSISTANCE".split(
-        ","
-    );
+
 
 export const PostModal: FC<IProps> = ({
                                           title,
@@ -43,7 +41,15 @@ export const PostModal: FC<IProps> = ({
                                           children,
                                       }) => {
     const [topic, setTopic] = useState("");
+    const inRef = useRef<HTMLInputElement>(null);
+    const [file, setFile] = useState<any>();
 
+    const upload = (e: ChangeEvent<HTMLInputElement>) => {
+        const newFile = e.target.files && e.target.files[0]; //достаем из таргета файлы, если файлы есть - прилетает массив, откуда достаем 0
+        if (newFile) {
+            setFile(newFile);
+        }
+    };
     const handleChange = (event: SelectChangeEvent) => {
         setTopic(event.target.value as string);
     };
@@ -53,14 +59,25 @@ export const PostModal: FC<IProps> = ({
             text: postText ? postText : "",
             topic: postTopic ? postTopic : "",
         } as InitialValuesType,
+        validate: (values: InitialValuesType) => {
+            let errors: FormikErrors<InitialValuesType> = {};
+            if (!values.topic) {
+                errors.topic = 'Required';
+            }
+            if (!values.text) {
+                errors.text = 'Required';
+            }
+            return errors;
+        },
         onSubmit: (values) => {
+            debugger
             if (addPost) {
                 addPost({
                     create_params: {
                         text: values.text,
                         topic: values.topic,
                     },
-                    // image: ''
+                    image: file
                 });
             }
             if (editPost) {
@@ -114,8 +131,10 @@ export const PostModal: FC<IProps> = ({
                                     type="text"
                                     onChange={formik.handleChange}
                                     value={formik.values.text}
+                                    style={formik.errors.text ? {border:'2px solid red'} : {}}
                                 />
-                            </div>
+
+                        </div>
                             <div className={s.selectWrap}>
                                 <h6>Выберите интерес</h6>
                                 <Select
@@ -123,6 +142,7 @@ export const PostModal: FC<IProps> = ({
                                     placeholder={"Выберите интерес"}
                                     value={topic}
                                     name="topic"
+                                    style={formik.errors.topic ? {border:'2px solid red'} : {}}
                                     onChange={(e) => {
                                         handleChange(e);
                                         formik.handleChange(e);
@@ -130,12 +150,21 @@ export const PostModal: FC<IProps> = ({
                                 >
                                     {topics.map((topic, index) => {
                                         return (
-                                            <MenuItem value={topic} key={index}>
-                                                {topic}
+                                            <MenuItem value={topic.value} key={index}>
+                                                {topic.label}
                                             </MenuItem>
                                         );
                                     })}
                                 </Select>
+                            </div>
+                            <div className={s.inputWrap}>
+                                <TextField
+                                    className={s.imageInput}
+                                    type="file"
+                                    name="image"
+                                    onChange={upload}
+                                    ref={inRef}
+                                />
                             </div>
                             <div className={s.btnWrap}>
                                 <Button variant={"contained"} type="submit">

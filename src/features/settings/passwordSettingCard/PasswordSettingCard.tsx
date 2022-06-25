@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, Paper, TextField } from "@mui/material";
 import s from "./styles.module.scss";
-import { useFormik } from "formik";
+import {FormikErrors, useFormik} from "formik";
 import { changeProfilePassword } from "../../../redux/ProfileReducer";
 import { useDispatch } from "react-redux";
 import SHA256 from "crypto-js/sha256";
@@ -20,6 +20,17 @@ export const PasswordSettingCard: FC<IProps> = ({}) => {
       newPassword: "",
       oldPassword: "",
     } as InitialValuesType,
+    validate: (values: InitialValuesType) => {
+      let errors: FormikErrors<InitialValuesType> = {};
+      if (!values.newPassword) {
+        errors.newPassword = 'Заполните поле';
+      }
+      if (!values.oldPassword) {
+        errors.oldPassword = 'Заполните поле';
+      }
+
+      return errors;
+    },
     onSubmit: (values) => {
       dispatch(
         changeProfilePassword({
@@ -43,7 +54,10 @@ export const PasswordSettingCard: FC<IProps> = ({}) => {
               value={formik.values.newPassword}
               onChange={formik.handleChange}
               placeholder={"введите пароль"}
+              style={formik.errors.newPassword ? {border:'2px solid red'} : {}}
             />
+            {formik.errors.newPassword && <span style={{color:'red'}}>{formik.errors.newPassword}</span>}
+
           </div>
           <div className={s.inputWrap}>
             <h6>Новый пароль</h6>
@@ -54,7 +68,10 @@ export const PasswordSettingCard: FC<IProps> = ({}) => {
               value={formik.values.oldPassword}
               onChange={formik.handleChange}
               placeholder={"введите пароль"}
+              style={formik.errors.oldPassword ? {border:'2px solid red'} : {}}
             />
+            {formik.errors.oldPassword && <span style={{color:'red'}}>{formik.errors.oldPassword}</span>}
+
           </div>
           <div className={s.btnWrap}>
             <Button

@@ -90,11 +90,27 @@ export const chatAPI = {
     setChannels() {
         return instance.get('channels')
     },
-    fetchMessagesById(id:number,params:ChannelParams) {
-        return instance.get(`channels/${id}/messages`,{
-            params:{
+    fetchMessagesById(id: number, params: ChannelParams) {
+        return instance.get(`channels/${id}/messages`, {
+            params: {
                 ...params
             }
         })
     },
+    startMessagesListening(id: number) {
+        const ws = new WebSocket(
+            `ws://wires-api.herokuapp.com/v1/channels/${id}/listen`
+        );
+        // ws.onopen = function (e) {
+        //     alert("[open] Соединение установлено");
+        //     alert("Отправляем данные на сервер");
+        //     console.log(e)
+        //     ws.send('Первое мое сообщение')
+        // };
+        ws.addEventListener('message',(e)=>{
+            console.log(e)
+        })
+    },
 }
+
+

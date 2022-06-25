@@ -3,7 +3,7 @@ import { Button, Paper, TextField } from "@mui/material";
 import s from "./styles.module.scss";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../../redux/ProfileReducer";
-import { useFormik } from "formik";
+import {FormikErrors, useFormik} from "formik";
 
 interface InitialValuesType {
   first_name: string;
@@ -22,6 +22,16 @@ export const InfoSettingsCard: FC<IProps> = ({ lastName, firstName }) => {
       first_name: firstName,
       last_name: lastName,
     } as InitialValuesType,
+    validate: (values: InitialValuesType) => {
+      let errors: FormikErrors<InitialValuesType> = {};
+      if (!values.first_name) {
+        errors.first_name = 'Заполните поле';
+      }
+      if (!values.last_name) {
+        errors.last_name = 'Заполните поле';
+      }
+      return errors;
+    },
     onSubmit: (values) => {
       dispatch(
         updateProfile({
@@ -45,7 +55,11 @@ export const InfoSettingsCard: FC<IProps> = ({ lastName, firstName }) => {
               name={"first_name"}
               onChange={formik.handleChange}
               placeholder={"введите текст"}
+              style={formik.errors.first_name ? {border:'2px solid red'} : {}}
+
             />
+            {formik.errors.first_name && <span style={{color:'red'}}>{formik.errors.first_name}</span>}
+
           </div>
           <div className={s.inputWrap}>
             <h6>Фамилия</h6>
@@ -56,7 +70,10 @@ export const InfoSettingsCard: FC<IProps> = ({ lastName, firstName }) => {
               className={s.input}
               onChange={formik.handleChange}
               placeholder={"введите текст"}
+              style={formik.errors.last_name ? {border:'2px solid red'} : {}}
             />
+            {formik.errors.last_name && <span style={{color:'red'}}>{formik.errors.last_name}</span>}
+
           </div>
           <div className={s.btnWrap}>
             <Button variant={"contained"} className={s.applyButton} type={"submit"}>

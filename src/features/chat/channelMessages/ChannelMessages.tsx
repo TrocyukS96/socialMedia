@@ -1,9 +1,10 @@
 import Paper from "@mui/material/Paper";
 import s from "./styles.module.scss";
 import {Button, TextField} from "@mui/material";
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useEffect} from "react";
 import {ChannelMessage} from "../../../api/types/channels";
-import {chatAPI} from "../../../api/api";
+import {useDispatch} from "react-redux";
+import {startMessagesListening} from "../../../redux/ChatReducer";
 
 interface IProps{
     messages:ChannelMessage[]
@@ -12,18 +13,18 @@ interface IProps{
 export const ChannelMessages:FC<IProps> =(
     {messages,channelId}
 )=>{
-    let ws = new WebSocket(`wss://wires-api.herokuapp.com/v1/channels/${channelId}/listen`)
-    ws.onopen = function(e) {
-        alert("[open] Соединение установлено");
-        alert("Отправляем данные на сервер");
-        ws.send("Меня зовут Джон");
-    };
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        if(channelId){
+            dispatch(startMessagesListening(channelId))
+        }
+    },[])
     return(
         <Paper variant="outlined" className={s.inner}>
             <div className={s.chatMessageList}>
                 {messages.map((message,index)=>{
                     return(
-                        <div className={s.message}>
+                        <div className={s.message} key={index}>
                             {/*<img src={chanel.image.url} alt="channel image"/>*/}
                             <div className={s.top}>
                                 <img className={s.messageImage} src={message?.author?.avatar?.url} alt="channel image"/>

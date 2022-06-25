@@ -63,6 +63,12 @@ export const getMessagesById = (id:number,params:ChannelParams) => async (dispat
     }
 }
 
+export const startMessagesListening = (id:number) => async (dispatch:Dispatch) => {
+    chatAPI.startMessagesListening(id)
+
+}
+
+
 //type
 type InitialStateType = typeof initialState
 

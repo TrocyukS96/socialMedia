@@ -1,6 +1,6 @@
 import s from "./styles.module.scss";
 import { Button, TextField } from "@mui/material";
-import { useFormik } from "formik";
+import {FormikErrors, useFormik} from "formik";
 import Box from "@mui/material/Box";
 import LockIcon from "@mui/icons-material/Lock";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -24,6 +24,21 @@ export const Registration = () => {
       email: "",
       password_hash: "",
     } as InitialValuesType,
+    validate: (values: InitialValuesType) => {
+      let errors: FormikErrors<InitialValuesType> = {};
+      if (!values.email) {
+        errors.email = 'Заполните поле';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Неправильный email адрес';
+      }
+      if (!values.password_hash) {
+        errors.password_hash = 'Введите пороль';
+      }
+      if (!values.username) {
+        errors.password_hash = 'Заполните поле';
+      }
+      return errors;
+    },
     onSubmit: (values) => {
       dispatch(registrationTC(values));
       formik.resetForm();
@@ -91,7 +106,10 @@ export const Registration = () => {
                   type="text"
                   onChange={formik.handleChange}
                   value={formik.values.username}
+                  style={formik.errors.username ? {border:'2px solid red'} : {}}
                 />
+                {formik.errors.username && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.username}</span>}
+
               </Box>
             </div>
             <div className={s.inputWrap}>
@@ -108,8 +126,11 @@ export const Registration = () => {
                   type="email"
                   onChange={formik.handleChange}
                   value={formik.values.email}
+                  style={formik.errors.email ? {border:'2px solid red'} : {}}
                 />
               </Box>
+              {formik.errors.email && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.email}</span>}
+
             </div>
             <div className={s.inputWrap}>
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -123,7 +144,9 @@ export const Registration = () => {
                   type="password"
                   onChange={formik.handleChange}
                   value={formik.values.password_hash}
+                  style={formik.errors.password_hash ? {border:'2px solid red'} : {}}
                 />
+                {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
               </Box>
             </div>
             <div className={s.btnWrap}>

@@ -59,7 +59,7 @@ export const InterestsSettingCard: FC<IProps> = ({ profileInterests }) => {
             );
           })}
         </div>
-        <Button variant={"contained"} className={s.applyButton} onClick={saveDataHandler}>
+        <Button disabled={profileInterests==interests} variant={"contained"} className={s.applyButton} onClick={saveDataHandler}>
           Сохранить интересы
         </Button>
       </div>

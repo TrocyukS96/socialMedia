@@ -35,12 +35,14 @@
       }
 
       .postImageWrap {
+        margin: 15px  0 15px;
         @include flexEdit(center, center);
 
         .postImage {
           width: 400px;
           height: 200px;
           object-fit: cover;
+          border-radius: $borderRadius;
         }
       }
     }

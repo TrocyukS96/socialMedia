@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal/Modal"
 import {Box, Button, Checkbox, FormControlLabel, SelectChangeEvent, TextField} from "@mui/material";
 import s from './styles.module.scss';
 import {FC, useState} from "react";
-import {useFormik} from "formik";
+import {FormikErrors, useFormik} from "formik";
 import {topics} from "../../utils/topics";
 
 interface IProps {
@@ -45,6 +45,24 @@ export const EditProfileModal: FC<IProps> = ({
             first_name: firstName,
             last_name: lastName,
         } as InitialValuesType,
+        validate: (values: InitialValuesType) => {
+            let errors: FormikErrors<InitialValuesType> = {};
+            if (!values.username) {
+                errors.username = 'Заполните поле';
+            }
+            if (!values.first_name) {
+                errors.first_name = 'Заполните поле';
+            }
+            if (!values.last_name) {
+                errors.last_name = 'Заполните поле';
+            }
+            if (!values.email) {
+                errors.email = 'Заполните поле';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Неправильный email адрес';
+            }
+            return errors;
+        },
         onSubmit: values => {
             if (editProfile) {
                 editProfile({
@@ -87,7 +105,10 @@ export const EditProfileModal: FC<IProps> = ({
                                 type="text"
                                 onChange={formik.handleChange}
                                 value={formik.values.username}
+                                style={formik.errors.username ? {border:'2px solid red'} : {}}
+
                             />
+                            {formik.errors.username && <span style={{color:'red'}}>{formik.errors.username}</span>}
                         </div>
                         <div className={`${s.inputWrap} ${s.email}`}>
                             <h6>Почта</h6>
@@ -98,7 +119,10 @@ export const EditProfileModal: FC<IProps> = ({
                                 type="email"
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
+                                style={formik.errors.email ? {border:'2px solid red'} : {}}
                             />
+                            {formik.errors.email && <span style={{color:'red'}}>{formik.errors.email}</span>}
+
                         </div>
                         <div className={`${s.inputWrap} ${s.firstName}`}>
                             <h6>Имя</h6>
@@ -109,7 +133,10 @@ export const EditProfileModal: FC<IProps> = ({
                                 type="text"
                                 onChange={formik.handleChange}
                                 value={formik.values.first_name}
+                                style={formik.errors.first_name ? {border:'2px solid red'} : {}}
                             />
+                            {formik.errors.first_name && <span style={{color:'red'}}>{formik.errors.first_name}</span>}
+
                         </div>
                         <div className={`${s.inputWrap} ${s.lastName}`}>
                             <h6>Фамилия</h6>
@@ -120,7 +147,11 @@ export const EditProfileModal: FC<IProps> = ({
                                 type="text"
                                 onChange={formik.handleChange}
                                 value={formik.values.last_name}
+                                style={formik.errors.last_name ? {border:'2px solid red'} : {}}
+
                             />
+                            {formik.errors.last_name && <span style={{color:'red'}}>{formik.errors.last_name}</span>}
+
                         </div>
                         <div className={s.checkboxWrap}>
                             <h6>Выберите интересы</h6>
