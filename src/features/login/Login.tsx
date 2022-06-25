@@ -24,15 +24,15 @@ export const Login: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      email: "test1@test.com",
-      password_hash: "123456",
+      email: "",
+      password_hash: "",
     } as InitialValuesType,
     validate: (values: InitialValuesType) => {
       let errors: FormikErrors<InitialValuesType> = {};
       if (!values.email) {
         errors.email = 'Заполните поле';
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Неправильный email адрес';
+        errors.email = 'Введите корректный email';
       }
       if (!values.password_hash) {
         errors.password_hash = 'Введите пароль';
@@ -136,7 +136,6 @@ export const Login: React.FC<any> = (props) => {
               />
             </Box>
             {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
-
           </div>
           <div className={s.btnWrap}>
             <Button type="submit" variant={"contained"} className={s.formBtn}>

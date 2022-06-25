@@ -4,7 +4,7 @@ import s from "./styles.module.scss";
 import { useDispatch } from "react-redux";
 import { ChangePhotoModal } from "../../../components/changePhotoModal/ChangePhotoModal";
 import { updateProfileImage } from "../../../redux/ProfileReducer";
-
+import Avatar from "../../../assets/Avatar.svg"
 interface IProps {
   image: string;
   firstName: string;
@@ -30,10 +30,10 @@ export const ProfileSettingsCard: FC<IProps> = ({
       <div className={s.inner}>
         <div className={s.imgBlock}>
           <h5>Профиль</h5>
-          <img src={image} alt="" />
+          <img src={image? image : Avatar} alt="" />
         </div>
         <div className={s.textBlock}>
-          <h5>{firstName + " " + lastName}</h5>
+          <h5>{firstName? firstName : "Имя" + " " + lastName}</h5>
           <span>@{username}</span>
           <Button
             className={s.applyButton}
@@ -46,7 +46,7 @@ export const ProfileSettingsCard: FC<IProps> = ({
       </div>
 
       <ChangePhotoModal
-        image={image}
+        image={image? image : Avatar}
         handleClose={handleClose}
         isOpen={isOpen}
         changeImage={changeImage}

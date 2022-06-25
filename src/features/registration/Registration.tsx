@@ -10,6 +10,9 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registrationTC } from "../../redux/registrationReducer";
 import SHA256 from "crypto-js/sha256";
+import { login } from "../../redux/AuthReducer";
+import { device_id } from "../../utils/constants";
+import { setAppStatusAC } from '../../redux/appReducer';
 
 interface InitialValuesType {
   username: string;
@@ -32,7 +35,7 @@ export const Registration = () => {
       } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
       ) {
-        errors.email = "Неправильный email адрес";
+        errors.email = "Введите корректный Email";
       }
       if (!values.password_hash) {
         errors.password_hash = "Введите пароль";
@@ -48,6 +51,13 @@ export const Registration = () => {
           username: values.username,
           email: values.email,
           password_hash: SHA256(values.password_hash).toString(),
+        })
+      );
+      dispatch(
+        login({
+          email: values.email,
+          password_hash: SHA256(values.password_hash).toString(),
+          device_id: device_id,
         })
       );
       formik.resetForm();
@@ -150,29 +160,21 @@ export const Registration = () => {
               )}
             </div>
             <div className={s.inputWrap}>
-              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                <TextField
-                  className={s.input}
-                  id="password_hash"
-                  name="password_hash"
-                  label={"Пароль"}
-                  variant="standard"
-                  type="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password_hash}
-                  style={
-                    formik.errors.password_hash
-                      ? { border: "2px solid red" }
-                      : {}
-                  }
-                />
-                {formik.errors.password_hash && (
-                  <span style={{ color: "red", marginLeft: "5px" }}>
-                    {formik.errors.password_hash}
-                  </span>
-                )}
-              </Box>
+            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+              <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                className={s.input}
+                id="password_hash"
+                name="password_hash"
+                label={"Пароль"}
+                variant="standard"
+                type="password"
+                onChange={formik.handleChange}
+                value={formik.values.password_hash}
+                style={formik.errors.password_hash ? {border:'2px solid red'} : {}}
+              />
+            </Box>
+            {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
             </div>
             <div className={s.btnWrap}>
               <Button type="submit" variant={"contained"} className={s.formBtn}>
@@ -186,45 +188,6 @@ export const Registration = () => {
               Войти
             </NavLink>
           </div>
-          {/*<div className={s.inputItem}>*/}
-          {/*    <label htmlFor="registration/password">Password</label>*/}
-          {/*    <Input placeholder="Enter password..."*/}
-          {/*           type="password"*/}
-          {/*        // value={password}*/}
-          {/*        // onChange={onChangePasswordHandler}*/}
-          {/*           id={'registration/password'}*/}
-          {/*           autoComplete={'new-password'}*/}
-          {/*        // view="submit"*/}
-          {/*        // errorMessage={errorPasswordMessage}*/}
-          {/*    />*/}
-
-          {/*</div>*/}
-          {/*<div className={s.inputItem}>*/}
-          {/*    <label htmlFor="registration/checkPassword">Confirm password</label>*/}
-          {/*    <Input placeholder="Confirm password..."*/}
-          {/*           type="password"*/}
-          {/*        // value={checkPassword}*/}
-          {/*        // onChange={onChangePasswordCheckHandler}*/}
-          {/*           id={'registration/checkPassword'}*/}
-          {/*           autoComplete={'new-password'}*/}
-          {/*        // view="submit"*/}
-          {/*        // errorMessage={errorPasswordMessage}*/}
-          {/*    />*/}
-          {/*</div>*/}
-          {/*/!*{!emailValidation(email) &&*!/*/}
-          {/*/!*    <div style={{color: 'red'}}>{serverErrorMessage} </div>}*!/*/}
-          {/*<div className={s.buttonsBlock}>*/}
-          {/*    <button className={s.cancel} onClick={goBack}>Cancel</button>*/}
-          {/*    <button*/}
-          {/*        type="submit"*/}
-          {/*        className={s.register}*/}
-          {/*        // onClick={onRegistrationHandler}*/}
-          {/*        // disabled={appStatus === 'loading'}*/}
-          {/*        // disabled={disabledBtnSubmit}*/}
-          {/*    >*/}
-          {/*        Register*/}
-          {/*    </button>*/}
-          {/*</div>*/}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import axios, {AxiosRequestConfig} from "axios";
-import {LoginParamsType, LogOutParamsType, RegisterParamsType} from "./types/auth";
-import {ProfileResponse} from "./types/profile";
-import {ChannelParams, PostParams} from "./types/post";
+import axios, { AxiosRequestConfig } from "axios";
+import { LoginParamsType, LogOutParamsType, RegisterParamsType } from "./types/auth";
+import { ProfileResponse } from "./types/profile";
+import { ChannelParams, PostParams } from "./types/post";
 
 export const instance = axios.create({
     baseURL: 'https://wires-api.herokuapp.com/v1/',
@@ -75,7 +75,7 @@ export const postsAPI = {
     },
     addPostComment(id: number, text: string) {
         debugger
-        return instance.post(`posts/${id}/comment`, {text})
+        return instance.post(`posts/${id}/comment`, { text })
     },
     createPost(params: any) {
         return instance.post('posts/create', params)
@@ -90,8 +90,8 @@ export const chatAPI = {
     setChannels() {
         return instance.get('channels')
     },
-    createChannel(params:any) {
-        return instance.post('channels/create',params)
+    createChannel(params: any) {
+        return instance.post('channels/create', params)
     },
     fetchMessagesById(id: number, params: ChannelParams) {
         return instance.get(`channels/${id}/messages`, {
@@ -104,13 +104,15 @@ export const chatAPI = {
         const ws = new WebSocket(
             `ws://wires-api.herokuapp.com/v1/channels/${id}/listen`
         );
-        // ws.onopen = function (e) {
-        //     alert("[open] Соединение установлено");
-        //     alert("Отправляем данные на сервер");
-        //     console.log(e)
-        //     ws.send('Первое мое сообщение')
-        // };
-        ws.addEventListener('message',(e)=>{
+        ws.onopen = function (e) {
+            alert("[open] Соединение установлено");
+            alert("Отправляем данные на сервер");
+            console.log(e)
+            ws.send(JSON.stringify({
+                text: "chat"
+            }));
+        };
+        ws.addEventListener('message', (e) => {
             console.log(e)
         })
     },

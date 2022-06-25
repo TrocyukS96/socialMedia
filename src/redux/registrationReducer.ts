@@ -1,8 +1,8 @@
-import {Dispatch} from 'redux';
-import {RegisterParamsType} from "../api/types/auth";
-import {authAPI} from "../api/api";
+import { Dispatch } from 'redux';
+import { RegisterParamsType } from "../api/types/auth";
+import { authAPI } from "../api/api";
 import { setAppStatusAC } from './appReducer';
-
+import { login } from "./AuthReducer";
 
 const initialStateRegistration: RegistrationType = {
     isRegistration: false,
@@ -12,9 +12,9 @@ const initialStateRegistration: RegistrationType = {
 export const registrationReducer = (state: RegistrationType = initialStateRegistration, action: ActionsType): RegistrationType => {
     switch (action.type) {
         case 'REGISTRATION/NEW-USER-CREATED':
-            return {...state, isRegistration: action.isRegistration, error: ''}
+            return { ...state, isRegistration: action.isRegistration, error: '' }
         case 'REGISTRATION/SET-ERROR':
-            return {...state, error: action.value};
+            return { ...state, error: action.value };
         default:
             return state
     }
@@ -22,9 +22,9 @@ export const registrationReducer = (state: RegistrationType = initialStateRegist
 
 //actionCreators
 export const registrationAC = (isRegistration: boolean) =>
-    ({type: 'REGISTRATION/NEW-USER-CREATED', isRegistration} as const)
+    ({ type: 'REGISTRATION/NEW-USER-CREATED', isRegistration } as const)
 export const setErrorAC = (value: string) =>
-    ({type: 'REGISTRATION/SET-ERROR', value} as const)
+    ({ type: 'REGISTRATION/SET-ERROR', value } as const)
 
 //thunk
 export const registrationTC = (data: RegisterParamsType) => async (dispatch: Dispatch) => {
