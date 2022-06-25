@@ -35,7 +35,7 @@ export const Login: React.FC<any> = (props) => {
         errors.email = 'Неправильный email адрес';
       }
       if (!values.password_hash) {
-        errors.password_hash = 'Введите пороль';
+        errors.password_hash = 'Введите пароль';
       }
       return errors;
     },
