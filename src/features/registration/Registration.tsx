@@ -146,8 +146,9 @@ export const Registration = () => {
                   value={formik.values.password_hash}
                   style={formik.errors.password_hash ? {border:'2px solid red'} : {}}
                 />
-                {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
               </Box>
+              {formik.errors.password_hash && <span style={{color:'red', marginLeft:'5px'}}>{formik.errors.password_hash}</span>}
+
             </div>
             <div className={s.btnWrap}>
               <Button type="submit" variant={"contained"} className={s.formBtn}>

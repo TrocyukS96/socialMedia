@@ -104,15 +104,16 @@ export const chatAPI = {
         const ws = new WebSocket(
             `ws://wires-api.herokuapp.com/v1/channels/${id}/listen`
         );
-        // ws.onopen = function (e) {
-        //     alert("[open] Соединение установлено");
-        //     alert("Отправляем данные на сервер");
-        //     console.log(e)
-        //     ws.send('Первое мое сообщение')
-        // };
-        ws.addEventListener('message',(e)=>{
+        ws.onopen = function (e) {
+            alert("[open] Соединение установлено");
+            alert("Отправляем данные на сервер");
             console.log(e)
-        })
+            ws.send(JSON.stringify({
+                text: "client1"
+            }));
+        };
+
+
     },
 }
 
